@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+
 .roboto {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
@@ -56,12 +60,6 @@
   50% { border-color: transparent }
 }
 
-body {
-  background-color: white;
-  color: black;
-}
-
-body.dark {
-  background-color: #111;
-  color: white;
+body{
+  font-family: 'Roboto';
 }

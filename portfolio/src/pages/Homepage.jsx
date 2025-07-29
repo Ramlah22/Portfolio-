@@ -11,14 +11,35 @@ import Project3 from "../assets/project3.png"
 
 export const Homepage = () => {
 
-    // Back to top buttom
-                const [showButton, setShowButton] = useState(false);
-        const [isHovered, setIsHovered] = useState(false);
+    //Mobile Menu
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        // Show button when scrolled past 300px
-        window.onscroll = () => {
-            setShowButton(window.scrollY > 300);
-        };
+        const openMenu = () => setIsMenuOpen(true);
+        const closeMenu = () => setIsMenuOpen(false);
+
+    
+      //Dark Mode
+      const [isDark, setDark] = useState(false)
+
+      const toggleTheme = () => {
+        setDark(!isDark)
+      }
+               
+    
+    //More buttom
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+
+
+
+    // Back to top buttom
+        useEffect(() => {
+  const handleScroll = () => setShowButton(window.scrollY > 300);
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);       
 
 
        //Aos animation
@@ -34,14 +55,13 @@ export const Homepage = () => {
         }, []);
 
 
-        const toggleDarkMode = () => {
-  document.body.classList.toggle('dark');
-};
-
     return (
         <>
 
-        <body data-aos-easing="ease-in-out" data-aos-duration="2000" data-aos-delay="0" className='roboto' >
+      
+
+        <div data-aos-easing="ease-in-out" data-aos-duration="2000" data-aos-delay="0" 
+           className={`roboto${isDark ? ' dark' : ''}`}>
 
            {/* Header  */}
            <nav className='bg-white fixed top-0 left-0 w-full z-50 p-1.5 overflow-hidden shadow-lg dark:bg-gray-800 transition-all duration-300' data-aos-duration="1000" data-aos="fade-down">
@@ -50,7 +70,7 @@ export const Homepage = () => {
                     <a href="#" className="flex items-center gap-2">
                         <h1 className="text-4xl font-semibold text-gray-800 dark:text-white">RA | Portfolio</h1>
                     </a>
-                    <button  className="md:hidden text-gray-700 dark:text-white focus:outline-none"><i className="bx bx-menu text-2xl" id="burger"></i></button>
+                    <button   onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-700 dark:text-white focus:outline-none"><i className="bx bx-menu text-2xl" ></i></button>
 
                     <ul className="hidden md:flex items-center gap-6">
                         <li>
@@ -92,7 +112,9 @@ export const Homepage = () => {
                      <li>
                         <a  className="flex cursor-pointer items-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600">
                              <i className="bx bx-moon text-xl"></i>
-                            <span onClick={toggleDarkMode}>Dark Mode</span>
+                             <span onClick={toggleTheme}>
+                            {isDark ? 'Light Mode' : 'Dark Mode'}
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -100,57 +122,58 @@ export const Homepage = () => {
         </div>
            </nav>
 
-           {/* Hidden Menu */}
-            
- 
-     <div id="menu"  className="fixed top-0 right-0 h-full w-70 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out z-50 md:hidden translate-x-full">
+          
+             {/* Hidden Menu */}
+    {isMenuOpen && (
+   
+     <div  className="fixed top-0 right-0 h-full w-70 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out z-50 md:hidden ">
      <div className="flex flex-col h-full">
          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
          <div className="flex items-center gap-2">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Navigation</h2>
          </div>
-            <button className="text-gray-800 dark:text-white focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200" >
+            <button onClick={closeMenu} className="text-gray-800 dark:text-white focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200" >
             <i className="bx bx-x text-2xl"></i>
             </button>
           </div>
             <div className="flex-1 overflow-y-auto py-6">
             <ul className="flex flex-col gap-2 px-6">
-            <li className="transform transition-all duration-300 translate-x-10 opacity-0">
-    <a href="#home" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 bg-gray-800 dark:bg-white dark:text-gray-800 text-white shadow-lg">
+            <li className="transform transition-all duration-300 ">
+    <a href="#home" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
         <i className="bx bx-home text-xl"></i>
         <span>Home</span>
         <i className="bx bx-chevron-right ml-auto text-xl"></i>
         </a>
     </li>
-    <li className="transform transition-all duration-300 translate-x-10 opacity-0">
+    <li className="transform transition-all duration-300 ">
         <a href="#about" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <i className="bx bx-id-card text-xl"></i>
             <span>About</span>
             <i className="bx bx-chevron-right ml-auto text-xl"></i>
         </a>
     </li>
-        <li className="transform transition-all duration-300 translate-x-10 opacity-0">
+        <li className="transform transition-all duration-300 ">
             <a href="#projects" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <i className="bx bx-code-alt text-xl"></i>
                 <span>Projects</span>
                 <i className="bx bx-chevron-right ml-auto text-xl"></i>
                 </a>
             </li>
-            <li className="transform transition-all duration-300 translate-x-10 opacity-0">
+            <li className="transform transition-all duration-300 ">
                 <a href="#experience" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <i className="bx bx-briefcase-alt text-xl"></i>
                     <span>Experience</span>
                     <i className="bx bx-chevron-right ml-auto text-xl"></i>
                     </a>
                 </li>
-                <li className="transform transition-all duration-300 translate-x-10 opacity-0">
+                <li className="transform transition-all duration-300 ">
                     <a href="#skills" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i className="bx bx-bar-chart-alt-2 text-xl"></i>
                         <span>Skills</span>
                         <i className="bx bx-chevron-right ml-auto text-xl"></i> 
                     </a>
                 </li>
-                <li className="transform transition-all duration-300 translate-x-10 opacity-0">
+                <li className="transform transition-all duration-300 ">
                     <a href="#contact" className="flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i className="bx bx-envelope text-xl"></i>
                         <span>Contact</span>
@@ -160,7 +183,9 @@ export const Homepage = () => {
                     <li>
                         <button className="w-full flex items-center gap-3 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle dark mode">
                             <i className="bx bx-moon text-xl"></i>
-                            <span>Dark Mode</span>
+                             <span onClick={toggleTheme}>
+                            {isDark ? 'Light Mode' : 'Dark Mode'}
+                            </span>
                         </button>
                     </li>
                 </ul>
@@ -172,6 +197,8 @@ export const Homepage = () => {
     </div>
 
 
+    )}
+    
 
 
     {/* Home */}
@@ -205,10 +232,15 @@ export const Homepage = () => {
             </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 aos-init" data-aos-delay="600" data-aos="fade-down">
-            <button className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 bg-gray-800 dark:bg-white text-white dark:text-gray-800 hover:bg-gray-800 dark:hover:bg-gray-100" title='Explore My Project' aria-label="Explore My Project">
+            <button 
+                          onClick={toggleModal}
+              className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 bg-gray-800 dark:bg-white text-white dark:text-gray-800 hover:bg-gray-800 dark:hover:bg-gray-100" title='Explore My Project' aria-label="Explore My Project">
                 <i className="bx bx-download mr-2"></i>Explore My Project</button>
-                <button className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 border-2 border-gray-800 dark:border-white text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white dark:hover:bg-white dark:hover:text-gray-800" title='Download My CV' aria-label="Download My CV">
+                <button 
+                        onClick={toggleModal}
+             className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 border-2 border-gray-800 dark:border-white text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white dark:hover:bg-white dark:hover:text-gray-800" title='Download My CV' aria-label="Download My CV">
                     <i className="bx bx-envelope mr-2"></i>Download My CV</button>
+    
                 </div>
                 <h4 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 dark:text-white">
                     <i className="bx bx-bar-chart-alt text-base"></i>Quick Stats:</h4>
@@ -270,6 +302,30 @@ export const Homepage = () => {
                 </div>
             </div>
     </div>
+     {/*  Modal Overlay and Content */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg w-[90%] max-w-md p-6 text-center relative">
+            {/* Title */}
+            <h2 className="text-xl font-semibold mb-2 text-gray-800">
+              Not Available Yet
+            </h2>
+
+            {/* Description */}
+            <p className="text-gray-600 mb-6">
+              This feature or file is not ready yet. Please check back later!
+            </p>
+
+            {/* Close Button */}
+            <button
+              onClick={toggleModal}
+              className="bg-gray-800 text-white px-6 py-2 rounded hover:bg-gray-900 cursor-pointer"
+            >
+              Alright
+            </button>
+          </div>
+        </div>
+      )}
 </section>
 
 
@@ -379,34 +435,36 @@ export const Homepage = () => {
             </ul>
             <button className="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-gray-800 dark:border-white text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white dark:hover:bg-white dark:hover:text-gray-800 " aria-label="Download Resume" data-aos-delay="600" data-aos="fade-down">
                 <i className="bx bx-download text-lg mr-2" ></i>Download My Resume</button>
+                
             </div>
         </div>
     </div>
+    
 </section>
 
 
             {/* Project */}
-            <section data-aos="fade-down" data-aos-duration="1000">
+            <section data-aos="fade-down" data-aos-duration="1000 " className='bg-white dark:bg-gray-800'>
                  <div id="projects" className="w-full h-auto py-10 px-[5%]">
             <div className="flex justify-center items-center flex-col gap-2 mb-8 md:mb-20">
-                <h2 className="font-semibold text-xl md:text-3xl uppercase text-gray-700">Some Projects</h2>
+                <h2 className="font-semibold text-xl md:text-3xl uppercase text-gray-700 dark:text-white">Some Projects</h2>
                 <div className="inline-block w-10 h-1 rounded-full bg-gray-700"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 justify-center items-center mb-14 md:mb-32">
                 <div className="h-auto rounded-md overflow-hidden hover:scale-105 duration-500 transition-all">
                     <img src={Project1} alt="Image" className="w-full h-full object-cover"/>
                 </div>
-                <div className="h-auto" data-aos-delay="600" data-aos="fade-up">
-                    <h2 className="font-semibold text-lg mb-2 text-gray-700" >Recipes by Bluey</h2>
-                    <p className="text-sm text-left text-gray-500">"Recipes by Bluey" is a fun and family-friendly recipe website inspired by the beloved Bluey TV show. It features simple, tasty, and playful recipes that kids and parents can enjoy making together. Whether you're recreating treats from the show or discovering new favorites, each recipe is designed to bring joy to the kitchen — Bluey-style!
+                <div className="h-auto" data-aos-delay="300" data-aos="fade-up">
+                    <h2 className="font-semibold text-2xl mb-2 text-gray-700 dark:text-gray-900" >Recipes by Bluey</h2>
+                    <p className="text-sm text-left text-gray-500 dark:text-white">"Recipes by Bluey" is a fun and family-friendly recipe website inspired by the beloved Bluey TV show. It features simple, tasty, and playful recipes that kids and parents can enjoy making together. Whether you're recreating treats from the show or discovering new favorites, each recipe is designed to bring joy to the kitchen — Bluey-style!
                     </p>
                     <a className="inline-block py-2 px-6 bg-gray-700 text-white rounded-md hover:-translate-y-1 transition-all duration-200 ease-linear mt-8">More Info</a>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 justify-center items-center mb-14 md:mb-32">
-                <div className="h-auto order-2 md:order-1" data-aos-delay="600" data-aos="fade-up" >
-                    <h2 className="font-semibold text-lg mb-2 text-gray-700">Heygaia</h2>
-                    <p className="text-sm text-left text-gray-500">
+                <div className="h-auto order-2 md:order-1" data-aos-delay="300" data-aos="fade-up" >
+                    <h2 className="font-semibold text-2xl mb-2 text-gray-700 dark:text-gray-900 ">Heygaia</h2>
+                    <p className="text-sm text-left text-gray-500 dark:text-white">
                 Heygaia is a wellness-focused massage service dedicated to helping you relax, restore, and reconnect. Blending modern techniques with a holistic approach, Heygaia offers personalized massage experiences designed to ease tension, reduce stress, and support overall well-being — all in a calming, nurturing environment.</p>
                 <a className="inline-block py-2 px-6 bg-gray-700 text-white rounded-md hover:-translate-y-1 transition-all duration-200 ease-linear mt-8">More Info</a>
             </div>
@@ -418,8 +476,8 @@ export const Homepage = () => {
             <div className="h-auto rounded-md overflow-hidden hover:scale-105 duration-500 transition-all">
                 <img src={Project3} alt="Image" className="w-full h-full object-cover"/>
             </div>
-            <div className="h-auto" data-aos-delay="600" data-aos="fade-up">
-                <h2 className="font-semibold text-lg mb-2 text-gray-700">Bluey Glamour</h2>
+            <div className="h-auto" data-aos-delay="300" data-aos="fade-up">
+                <h2 className="font-semibold text-2xl mb-2 text-gray-700 dark:text-gray-900">Bluey Glamour</h2>
                 <p className="text-sm text-left text-gray-500">
                     Bluey Glamour is your go-to online destination for trendy fashion and stylish accessories. From everyday essentials to statement pieces, Bluey Glamour brings you curated collections that blend elegance, comfort, and a touch of boldness — all designed to help you shine with confidence.</p>
                     <a className="inline-block py-2 px-6 bg-gray-700 text-white rounded-md hover:-translate-y-1 transition-all duration-200 ease-linear mt-8">More Info</a>
@@ -776,22 +834,21 @@ export const Homepage = () => {
     </div>
     </footer>
 
-        </body>
+        </div>
           
 
         {/* BackToTop Button */}
 
-      {showButton && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        class="fixed bottom-6 right-6 z-50 w-15 h-15 flex items-center drop-shadow-2xl justify-center rounded-full bg-gray-800 text-white dark:bg-white dark:text-gray-800 shadow-lg  transition-all hover:scale-103"
-          aria-label="Back to top"
-        >
-          <i class="bx bx-chevron-up text-2xl"></i>
-        </button>
-      )}
+     <button
+  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+  className="fixed bottom-6 right-6 z-50 w-15 h-15 flex items-center drop-shadow-2xl justify-center rounded-full bg-gray-800 text-white dark:bg-white dark:text-gray-800 shadow-lg  transition-all hover:scale-103"
+  aria-label="Back to top"
+>
+  <i className="bx bx-chevron-up text-2xl"></i>
+</button>
+
 
       
         </>
