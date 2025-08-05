@@ -11,6 +11,15 @@ import Project3 from "../assets/project3.png"
 
 export const Homepage = () => {
 
+
+    //Skills
+  const [showSkill, setShowSkill] = useState('frontend');
+
+
+            //  Experience
+        const [showElement, setShowElement] = useState(false);
+      
+
     //Mobile Menu
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -185,7 +194,7 @@ export const Homepage = () => {
                             <i className="bx bx-moon text-xl"></i>
                              <span onClick={toggleTheme}>
                             {isDark ? 'Light Mode' : 'Dark Mode'}
-                            </span>
+                            </span> 
                         </button>
                     </li>
                 </ul>
@@ -496,10 +505,29 @@ export const Homepage = () => {
             <p className="text-lg dark:text-gray-400">A glimpse of where I've been — from work experience to organizational life that shaped who I am.</p>
         </div>
         <div className="flex justify-center mb-8 gap-4 flex-wrap " data-aos-delay="600" data-aos="fade-down">
-            <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-gray-800 text-white dark:bg-white dark:text-gray-800"><i className="bx bx-briefcase"></i>Work</button>
-            <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white"><i className="bx bx-group"></i>Organization</button>
+            <button 
+             className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${!showElement
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+          onClick={() => setShowElement(false)}
+      >
+        <i className="bx bx-briefcase"></i>Work</button>
+            <button 
+             className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${showElement
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+    onClick={() => setShowElement(true)}
+           >
+            <i className="bx bx-group"></i>Organization</button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6 " data-aos-delay="600" data-aos="fade-down">
+
+        {/* work */}
+        {!showElement && (
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6 " data-aos-delay="600" data-aos="fade-down">
             <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform">
                 <div className="flex items-start gap-4">
                     <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 shrink-0">
@@ -623,7 +651,47 @@ export const Homepage = () => {
                         <div className="flex gap-2"></div>
                     </div>
                 </div>
-            </div>
+        )}
+       
+            {/* Organisation */}
+            {showElement && (
+                <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6 " data-aos-delay="600" data-aos="fade-down">
+                            <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform">
+                <div className="flex items-start gap-4">
+                    <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 shrink-0">
+                        <i className="bx bx bx-code-alt text-5xl"></i>
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">ATAFOM university </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Frontend Development</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">June 2024 - Jan 2025 • Remote</p>
+                    </div>
+                </div>
+                <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-2">Responsibilities:</h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                        <li className="flex items-center gap-2">
+                            <i className="bx bx-check text-lg"></i>Build responsive UI with React &amp; Tailwind</li>
+                            <li className="flex items-center gap-2">
+                                <i className="bx bx-check text-lg"></i>Integrate REST APIs for dashboard</li>
+                                <li className="flex items-center gap-2">
+                                    <i className="bx bx-check text-lg"></i>Fix bugs &amp; optimize performance</li>
+                                </ul>
+                            </div>
+                            <div className="mb-4">
+                                <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-2">Tech Stack:</h4>
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded-full text-gray-800 dark:text-gray-200">React</span>
+                                    <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded-full text-gray-800 dark:text-gray-200">Tailwind</span>
+                                    <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded-full text-gray-800 dark:text-gray-200">Javascript</span>
+                                </div>
+                            </div>
+                            <div className="flex gap-2"></div>
+                        </div>
+                                </div>
+                                
+            )}
+             </div> 
         </section>
 
 
@@ -632,16 +700,50 @@ export const Homepage = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 text-gray-800 " data-aos-delay="600" data-aos="fade-down">
             <h2 className="text-5xl font-bold dark:text-white mb-2">Skills</h2>
-            <p className="text-lg dark:text-gray-400">Tools and technologies I’ve mastered or currently exploring.</p>
+            <p className="text-lg dark:text-gray-400">Tools and technologies I've mastered or currently exploring.</p>
         </div>
         <div className="flex justify-center mb-8 gap-4 flex-wrap" data-aos-delay="600" data-aos="fade-down">
-            <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-gray-800 text-white dark:bg-white dark:text-gray-800">
-                <i className="bx bx bx-code-alt"></i>Frontend</button>
-                <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white"><i className="bx bx bx-server"></i>Backend</button>
-                <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white"><i className="bx bx bx-wrench"></i>Other Tools</button>
-                <button className="flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white"><i className="bx bx bx-brain"></i>AI/ML &amp; Tools</button>
+            {/* Frontend-button */}
+            <button 
+               className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${showSkill === 'frontend'
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+    onClick={() => setShowSkill('frontend')}
+            >
+            <i className="bx bx bx-code-alt"></i>Frontend</button>
+             {/* backend-buttom */}
+                <button
+                  className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${showSkill === 'backend'
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+    onClick={() => setShowSkill('backend')}
+                ><i className="bx bx bx-server"></i>Backend</button>
+                {/* Othertools-buttom */}
+                <button 
+                  className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${showSkill === 'other'
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+    onClick={() => setShowSkill('other')}
+                ><i className="bx bx bx-wrench"></i>Other Tools</button>
+                {/* Ai-buttom */}
+                <button 
+                 className={`flex items-center gap-2 px-5 py-3 rounded-lg shadow-lg text-sm font-medium transition-all
+      ${showSkill === 'ai'
+        ? 'bg-gray-800 text-white dark:bg-white dark:text-gray-800'
+        : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-white border border-white'
+      }`}
+    onClick={() => setShowSkill('ai')}
+                ><i className="bx bx bx-brain"></i>AI/ML &amp; Tools</button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6" data-aos-delay="600" data-aos="fade-down">
+            {/* Frontend */}
+            {showSkill === 'frontend' && (
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6" data-aos-delay="600" data-aos="fade-down">
                 <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
                         <i className="bx bx bxl-html5 text-5xl"></i>
@@ -684,6 +786,72 @@ export const Homepage = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center"><span className="inline-block">Intermediate</span></p>
                 </div>
             </div>
+            )}
+
+            {/* backend */}
+            {showSkill === 'backend' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6" data-aos-delay="600" data-aos="fade-down">
+                  <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
+        <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
+            <i className="bx bx bxl-nodejs text-5xl"></i>
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">Node.js</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">
+            <span className="inline-block">Advanced</span>
+        </p>
+    </div> 
+              </div>
+            )}
+
+            {/* Othertools */}
+            {showSkill === 'other' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6" data-aos-delay="600" data-aos="fade-down">
+                    
+        <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
+            <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
+                <i className="bx bx bxl-git text-5xl"></i>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">Git</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">
+                <span className="inline-block">Advanced</span>
+            </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
+            <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
+                <i className="bx bx bxl-github text-5xl"></i>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">GitHub</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">
+                <span className="inline-block">Advanced</span>
+            </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
+            <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
+                <i className="bx bx bx-upload text-5xl"></i>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">Vercel</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">
+                <span className="inline-block">Intermediate</span>
+            </p>
+        </div>  
+                </div>
+            )}
+
+            {/* AI */}
+            {showSkill === 'ai' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 gap-6" data-aos-delay="600" data-aos="fade-down">
+                    <div className="bg-white dark:bg-gray-800 border border-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform flex flex-col items-center">
+            <div className="w-16 h-16 flex items-center justify-center shadow-lg rounded-lg bg-gray-800 text-white dark:bg-white dark:text-gray-800 mb-4">
+                <i className='bx bx-brain text-5xl'></i>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">ChatGPT</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">
+                <span className="inline-block">Advanced</span>
+            </p>
+        </div>       
+                </div>
+            )}
+           
         </div>
     </section>   
 
